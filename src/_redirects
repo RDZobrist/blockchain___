@@ -1,3 +1,2 @@
 # Redirects from what the browser requests to what we serve
-/authenticate          https://blockchain-startup-rdz.netlify.app
-/
+/* /index.html 200
