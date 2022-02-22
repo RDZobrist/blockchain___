@@ -12,4 +12,4 @@ export const validateEmail = (email: string):any => {
   let validAccount = email.split('@')[1] === 'hexagonwireless.com';
       
       return validAccount;
-}
+}   
