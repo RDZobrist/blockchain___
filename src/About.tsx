@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Emoji } from './Emoji';
 import qrCode from './qr-code.svg';

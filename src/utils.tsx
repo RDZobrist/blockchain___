@@ -9,7 +9,7 @@ export const timeout = (delay: number) => {
   return new Promise((res) => setTimeout(res, delay));
 };
 export const validateEmail = (email: string):any => {
-  let validAccount = email.split('@')[1] == 'hexagonwireless.com';
+  let validAccount = email.split('@')[1] === 'hexagonwireless.com';
       
       return validAccount;
 }

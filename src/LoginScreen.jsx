@@ -1,14 +1,12 @@
 import React, { ReactElement, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { initializeApp } from 'firebase/app';
-import firebase from 'firebase/compat/app';
-import {  TextField, Container } from '@material-ui/core';
+// import { initializeApp } from 'firebase/app';
+// import firebase from 'firebase/compat/app';
+import {  Container } from '@material-ui/core';
 
 import { validateEmail } from './utils';
 import './login.css';
 
-const ariaLabel = { 'aria-label': 'description' };
 
 // const provider = new firebase.auth.GoogleAuthProvider();
 // 	provider.setCustomParameters({
@@ -29,9 +27,9 @@ export const LoginScreen = (): ReactElement => {
     return console.log(pass);
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    alert('i be pressed');
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  //   alert('i be pressed');
+  // };
 
 
 
@@ -71,7 +69,7 @@ export const LoginScreen = (): ReactElement => {
 
         <Button id="login-button" onClick={() => {validateEmail(email)?alert(`You have the hex domian ${email}`):alert('Im sorry, u are not authenticated') }}>
     
-      <img   style={styles.googleButton} alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      <img   style={styles.googleButton} alt="Google sign-in"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
       Login with Google
     </Button>
 
