@@ -5,6 +5,7 @@ import { About } from './About';
 import { Encoder } from './Encoder';
 import { Scanner } from './Scanner';
 import { FooterBar } from './FooterBar';
+import { LoginScreen } from './LoginScreen.jsx';
 import './App.css';
 
 export const App = (): ReactElement => (
@@ -12,6 +13,9 @@ export const App = (): ReactElement => (
     <HeaderBar />
     <BrowserRouter>
       <Switch>
+      <Route path="/authenticate">
+          <LoginScreen />
+        </Route>
         <Route path="/encoder">
           <Encoder />
         </Route>
@@ -21,6 +25,7 @@ export const App = (): ReactElement => (
         <Route path="/">
           <About />
         </Route>
+     
       </Switch>
     </BrowserRouter>
     <FooterBar />

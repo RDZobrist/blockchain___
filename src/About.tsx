@@ -1,18 +1,22 @@
 import React, { ReactElement } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import Typography from '@material-ui/core/Typography';
 import { Emoji } from './Emoji';
 import qrCode from './qr-code.svg';
 import network from './network.png';
 import './About.css';
 
-export const About = (): ReactElement => (
+
+export const About = () => (
+  
+  <>
+
   <div className="About-root">
     <div className="Headline-container">
       <div className="Headline-pad">
         <div className="Imagery-container">
           <div className="Qr-container">
             <img src={qrCode} className="Qr-image" alt="QR code pointing to www.heliumferry.com" />
-          </div>
           <div className="Emoji-container">
             <Emoji label="ferry" symbol="⛴️" />
           </div>
@@ -46,4 +50,7 @@ export const About = (): ReactElement => (
       </div>
     </div>
   </div>
+  </div>
+  </>
+
 );
