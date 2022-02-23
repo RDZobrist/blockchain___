@@ -1,55 +1,55 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import Button from '@material-ui/core/Button';
-// import { initializeApp } from 'firebase/app';
-// import firebase from 'firebase/compat/app';
 import {  Container } from '@material-ui/core';
-
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 import { validateEmail } from './utils';
 import './login.css';
 
 
-// const provider = new firebase.auth.GoogleAuthProvider();
-// 	provider.setCustomParameters({
-// 		hd: 'mydomain.com'
-// 	});
+
+
 
 export const LoginScreen = (): ReactElement => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  let navigate = useNavigate();
 
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    return console.log(validateEmail(email))
   };
   const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPass(event.target.value);
-    return console.log(pass);
   }
 
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-  //   alert('i be pressed');
-  // };
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDd9bLD7ap7yOl5mCwQVJC6gqtKvirmK7k",
+    authDomain: "ferry-auth.firebaseapp.com",
+    projectId: "ferry-auth",
+    storageBucket: "ferry-auth.appspot.com",
+    messagingSenderId: "1052001856811",
+    appId: "1:1052001856811:web:a886bf5fc31606c89fe96e"
+  };
 
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-  // const googleLogin = ():any => {
-  //   const validAccount = (userEmail: String ) : Boolean => {
-  //     return userEmail.split('@')[1] == 'hexagon.com';
-  //   }
+  firebaseApp.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      navigate('/about', { replace: true })
+      } else {
+    return 
+    }
+  });
 
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   provider.setCustomParameters({
-  //     hd: 'hexagonwireless.com'
-  //   });
+const  authenticateUser = async (email: string, pass: string)=>{
+  await firebaseApp.auth().signInWithEmailAndPassword(email, pass).catch(function(error){
+      alert(error.message);
+  },)}
 
-  //   const providers = firebase.auth();
-  //   console.log(providers)
-
-
-  //   firebase.auth()
-  //   .signInWithPopup(provider)
-  // }
 
 
   return (
@@ -67,7 +67,7 @@ export const LoginScreen = (): ReactElement => {
         </Container>
         <Container >
 
-        <Button id="login-button" onClick={() => {validateEmail(email)?alert(`You have the hex domian ${email}`):alert('Im sorry, u are not authenticated') }}>
+        <Button id="login-button" onClick={() => {authenticateUser(email, pass)}}>
     
       <img   style={styles.googleButton} alt="Google sign-in"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
       Login with Google
