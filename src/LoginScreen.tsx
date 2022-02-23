@@ -1,11 +1,10 @@
-import React, { ReactElement, useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import React, { ReactElement, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import {  Container } from '@material-ui/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { validateEmail } from './utils';
 import './login.css';
 
 
