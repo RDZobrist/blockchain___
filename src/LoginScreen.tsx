@@ -1,10 +1,13 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import {  Container } from '@material-ui/core';
 import firebaseApp from './firebase';
+import { useNavigate } from "react-router-dom";
 import './login.css';
 
 export const LoginScreen = (): ReactElement => {
+  firebaseApp.auth().signOut()
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
@@ -20,6 +23,15 @@ const authenticateUser = async (email: string, pass: string)=>{
   await firebaseApp.auth().signInWithEmailAndPassword(email, pass).catch(function(error){
       alert(error.message);
   },)}
+  let navigate = useNavigate();
+
+    firebaseApp.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        navigate('/about', { replace: true })
+      } else {
+        return      
+      }
+    });
 
   return (
     
