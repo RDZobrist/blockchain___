@@ -1,4 +1,4 @@
-import React, { ReactElement, ChangeEvent, useState } from 'react';
+import React, { ReactElement, ChangeEvent, useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/core/styles';
@@ -17,6 +17,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { a11yProps, timeout } from './utils';
 import { TabPanelProps } from './types';
 import './Encoder.css';
+import firebaseApp from './firebase';
+import { useNavigate } from "react-router-dom";
+
 
 interface CliPaymentObj {
   type?: string;
@@ -35,6 +38,7 @@ interface CliPaymentObj {
 }
 
 export const Encoder = (): ReactElement => {
+  let navigate = useNavigate();
   const [isEncoding, setIsEncoding] = useState(false);
   const [tab, setTab] = useState(0);
   const [txnType, setTxnType] = useState<string>('');
@@ -78,6 +82,7 @@ export const Encoder = (): ReactElement => {
     setOldOwner('');
     setTransferFee('55000');
   };
+  
 
   const handleChangeTab = (event: ChangeEvent<{}>, newValue: number) => {
     resetVals();
@@ -88,6 +93,15 @@ export const Encoder = (): ReactElement => {
     resetVals();
     setTab(index);
   };
+  useEffect(():void=>{
+    firebaseApp.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        navigate('/', { replace: true })
+      } else {
+        return
+      }
+    })
+  });
 
   const TabPanel = (props: TabPanelProps) => {
     const { children, value, index, ...other } = props;
@@ -176,6 +190,8 @@ export const Encoder = (): ReactElement => {
     }
     return true;
   };
+  
+
 
   return (
     <div className="Encoder-root">

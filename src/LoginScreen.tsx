@@ -1,20 +1,12 @@
 import React, { ReactElement, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import {  Container } from '@material-ui/core';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-import 'firebase/compat/auth';
+import firebaseApp from './firebase';
 import './login.css';
-
-
-
-
 
 export const LoginScreen = (): ReactElement => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  let navigate = useNavigate();
 
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,32 +16,10 @@ export const LoginScreen = (): ReactElement => {
     setPass(event.target.value);
   }
 
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDd9bLD7ap7yOl5mCwQVJC6gqtKvirmK7k",
-    authDomain: "ferry-auth.firebaseapp.com",
-    projectId: "ferry-auth",
-    storageBucket: "ferry-auth.appspot.com",
-    messagingSenderId: "1052001856811",
-    appId: "1:1052001856811:web:a886bf5fc31606c89fe96e"
-  };
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-  firebaseApp.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      navigate('/about', { replace: true })
-      } else {
-    return 
-    }
-  });
-
-const  authenticateUser = async (email: string, pass: string)=>{
+const authenticateUser = async (email: string, pass: string)=>{
   await firebaseApp.auth().signInWithEmailAndPassword(email, pass).catch(function(error){
       alert(error.message);
   },)}
-
-
 
   return (
     

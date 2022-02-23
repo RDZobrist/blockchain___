@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useRef } from 'react';
+import React, { ReactElement, useState, useRef, useEffect } from 'react';
 import QrReader from 'react-qr-reader';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
@@ -22,6 +22,8 @@ import Badge from '@material-ui/core/Badge';
 import { a11yProps, timeout } from './utils';
 import { TabPanelProps } from './types';
 import './Scanner.css';
+import firebaseApp from './firebase';
+import { useNavigate } from "react-router-dom";
 
 const NETWORKS: { [key: string]: any } = {
   test: 'https://testnet-api.helium.wtf/v1/pending_transactions/',
@@ -59,6 +61,7 @@ const TabPanel = (props: TabPanelProps) => {
   );
 };
 
+
 export const Scanner = (): ReactElement => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isCommand, setIsCommand] = useState<boolean>(false);
@@ -76,6 +79,7 @@ export const Scanner = (): ReactElement => {
   const [tab, setTab] = React.useState(0);
   const theme = useTheme();
   const cameraRef = useRef<any>(null);
+
 
   const handleChangeTab = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTab(newValue);
@@ -216,6 +220,17 @@ export const Scanner = (): ReactElement => {
     ta.remove();
     setIsCopied(true);
   };
+  let navigate = useNavigate();
+
+  useEffect(():void=>{
+    firebaseApp.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        navigate('/', { replace: true })
+      } else {
+        return
+      }
+    })
+  });
 
   return (
     <div className="Scanner-root">

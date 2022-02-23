@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useEffect, ReactElement} from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Emoji } from './Emoji';
 import qrCode from './qr-code.svg';
 import network from './network.png';
 import './About.css';
+import firebaseApp from './firebase';
+import { useNavigate } from "react-router-dom";
 
 
-export const About = () => (
+export const About  = (): ReactElement => {
   
-  <>
+  let navigate = useNavigate();
 
+  useEffect(():void=>{
+    firebaseApp.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        navigate('/', { replace: true })
+      } else {
+        return
+      }
+    })
+  });
+
+  
+return(
+  <>
   <div className="About-root">
     <div className="Headline-container">
       <div className="Headline-pad">
@@ -51,5 +66,5 @@ export const About = () => (
   </div>
   </div>
   </>
-
-);
+)
+}
